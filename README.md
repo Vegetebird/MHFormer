@@ -57,7 +57,13 @@ python main.py --train
 
 If you find our work useful in your research, please consider citing:
 
-    MHFormer: Multi-Hypothesis Transformer for 3D Human Pose Estimation, arXiv 2021. 
+
+    @article{li2021mhformer,
+      title={MHFormer: Multi-Hypothesis Transformer for 3D Human Pose Estimation},
+      author={Li, Wenhao and Liu, Hong and Hao, Tang and Pichao, Wang and Wang, Pichao and Van Gool, Luc},
+      journal={arXiv preprint},
+      year={2021}
+    }
 
 
 ## Acknowledgement
