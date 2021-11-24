@@ -37,7 +37,7 @@ class opts():
         self.parser.add_argument('--pad', type=int, default=175) 
         self.parser.add_argument('--reload', action='store_true')
         self.parser.add_argument('--checkpoint', type=str, default='')
-        self.parser.add_argument('--previous_dir', type=str, default='checkpoint/351')
+        self.parser.add_argument('--previous_dir', type=str, default='checkpoint/pretrained')
         self.parser.add_argument('--n_joints', type=int, default=17)
         self.parser.add_argument('--out_joints', type=int, default=17)
         self.parser.add_argument('--out_all', type=int, default=1)
