@@ -39,11 +39,13 @@ python main.py --reload --previous_dir 'checkpoint/pretrained'
 
 Here, we compare our MHFormer with recent state-of-the-art methods on Human3.6M dataset. Evaluation metric is Mean Per Joint Position Error (MPJPE) in mm​. 
 
+
 |   Models    |  MPJPE   |
 | :---------: | :------: |
 | VideoPose3D |   46.8   |
 | PoseFormer  |   44.3   |
 |  MHFormer   | **43.0** |
+
 
 ## Train the model
 
@@ -60,7 +62,7 @@ If you find our work useful in your research, please consider citing:
 
     @article{li2021mhformer,
       title={MHFormer: Multi-Hypothesis Transformer for 3D Human Pose Estimation},
-      author={Li, Wenhao and Liu, Hong and Hao, Tang and Pichao, Wang and Wang, Pichao and Van Gool, Luc},
+      author={Li, Wenhao and Liu, Hong and Tang, Hao and Wang, Pichao and Van Gool, Luc},
       journal={arXiv preprint},
       year={2021}
     }
