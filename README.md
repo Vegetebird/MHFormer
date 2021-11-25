@@ -63,7 +63,7 @@ If you find our work useful in your research, please consider citing:
     @article{li2021mhformer,
       title={MHFormer: Multi-Hypothesis Transformer for 3D Human Pose Estimation},
       author={Li, Wenhao and Liu, Hong and Tang, Hao and Wang, Pichao and Van Gool, Luc},
-      journal={arXiv preprint},
+      journal={arXiv preprint arXiv:2111.12707},
       year={2021}
     }
 
