@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-from model.module.trans import Transformer as Transformer_Encoder
+from model.module.trans import Transformer as Transformer_s
 from model.module.trans_hypothesis import Transformer
 
 class Model(nn.Module):
@@ -14,9 +14,9 @@ class Model(nn.Module):
         self.norm_2 = nn.LayerNorm(length)
         self.norm_3 = nn.LayerNorm(length)
 
-        self.trans_auto_1 = Transformer_Encoder(4, length, length*2, length=2*self.num_joints_in, h=9)
-        self.trans_auto_2 = Transformer_Encoder(4, length, length*2, length=2*self.num_joints_in, h=9)
-        self.trans_auto_3 = Transformer_Encoder(4, length, length*2, length=2*self.num_joints_in, h=9)
+        self.trans_auto_1 = Transformer_s(4, length, length*2, length=2*self.num_joints_in, h=9)
+        self.trans_auto_2 = Transformer_s(4, length, length*2, length=2*self.num_joints_in, h=9)
+        self.trans_auto_3 = Transformer_s(4, length, length*2, length=2*self.num_joints_in, h=9)
 
         self.encoder_1 = nn.Sequential(nn.Conv1d(2*self.num_joints_in, channel, kernel_size=1))
         self.encoder_2 = nn.Sequential(nn.Conv1d(2*self.num_joints_in, channel, kernel_size=1))
