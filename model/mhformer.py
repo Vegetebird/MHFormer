@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
-from model.module.transformer_encoder import Transformer as Transformer_Encoder
-from model.module.trans_hypothesis_sa_ca import Transformer
+from model.module.trans import Transformer as Transformer_Encoder
+from model.module.trans_hypothesis import Transformer
 
 class Model(nn.Module):
     def __init__(self, args):
