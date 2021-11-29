@@ -78,3 +78,6 @@ Our code is extended from the following repositories. We thank the authors for r
 - [ST-GCN](https://github.com/vanoracai/Exploiting-Spatial-temporal-Relationships-for-3D-Pose-Estimation-via-Graph-Convolutional-Networks)
 - [StridedTransformer-Pose3D](https://github.com/Vegetebird/StridedTransformer-Pose3D)
 
+## Licence
+
+This project is licensed under the terms of the MIT license.
