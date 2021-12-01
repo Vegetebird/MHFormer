@@ -76,7 +76,6 @@ Our code is extended from the following repositories. We thank the authors for r
 - [3d_pose_baseline_pytorch](https://github.com/weigq/3d_pose_baseline_pytorch)
 - [VideoPose3D](https://github.com/facebookresearch/VideoPose3D)
 - [ST-GCN](https://github.com/vanoracai/Exploiting-Spatial-temporal-Relationships-for-3D-Pose-Estimation-via-Graph-Convolutional-Networks)
-- [StridedTransformer-Pose3D](https://github.com/Vegetebird/StridedTransformer-Pose3D)
 
 ## Licence
 
