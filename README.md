@@ -2,7 +2,7 @@
 
 <p align="center"><img src="figure/pipline.jpg" width="100%" alt="" /></p>
 
-This repo is the official implementation of "MHFormer: Multi-Hypothesis Transformer for 3D Human Pose Estimation, Wenhao Li, Hong Liu, Hao Tang, Pichao Wang, Luc Van Gool" in PyTorch. 
+This repo is the official implementation of "[MHFormer: Multi-Hypothesis Transformer for 3D Human Pose Estimation](https://arxiv.org/pdf/2111.12707), Wenhao Li, Hong Liu, Hao Tang, Pichao Wang, Luc Van Gool" in PyTorch. 
 
 <p float="left">
   <img src="figure/skating.gif" width="49%" />
