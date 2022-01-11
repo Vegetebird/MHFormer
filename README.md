@@ -16,7 +16,7 @@ This repo is the official implementation of "[MHFormer: Multi-Hypothesis Transfo
 
 ## Dataset setup
 
-Please download the dataset from [Human3.6m](http://vision.imar.ro/human3.6m/) website and refer to [VideoPose3D](https://github.com/facebookresearch/VideoPose3D) to set up the Human3.6M dataset ('./dataset' directory). 
+Please download the dataset from [Human3.6M](http://vision.imar.ro/human3.6m/) website and refer to [VideoPose3D](https://github.com/facebookresearch/VideoPose3D) to set up the Human3.6M dataset ('./dataset' directory). 
 
 ```bash
 ${POSE_ROOT}/
