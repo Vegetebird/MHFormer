@@ -1,4 +1,4 @@
-# MHFormer: Multi-Hypothesis Transformer for 3D Human Pose Estimation
+# MHFormer: Multi-Hypothesis Transformer for 3D Human Pose Estimation (CVPR 2022)
 
 <p align="center"><img src="figure/pipline.jpg" width="100%" alt="" /></p>
 
