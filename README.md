@@ -1,8 +1,10 @@
-# MHFormer: Multi-Hypothesis Transformer for 3D Human Pose Estimation (CVPR 2022)
+# MHFormer: Multi-Hypothesis Transformer for 3D Human Pose Estimation [CVPR 2022]
 
 <p align="center"><img src="figure/pipline.jpg" width="100%" alt="" /></p>
 
-This repo is the official implementation of "[MHFormer: Multi-Hypothesis Transformer for 3D Human Pose Estimation](https://arxiv.org/pdf/2111.12707), Wenhao Li, Hong Liu, Hao Tang, Pichao Wang, Luc Van Gool" in PyTorch. 
+> [**MHFormer: Multi-Hypothesis Transformer for 3D Human Pose Estimation**](https://arxiv.org/pdf/2111.12707),            
+> Wenhao Li, Hong Liu, Hao Tang, Pichao Wang, Luc Van Gool,        
+> *In Conference on Computer Vision and Pattern Recognition (CVPR), 2022*
 
 <p float="left">
   <img src="figure/skating.gif" width="49%" />
@@ -59,14 +61,12 @@ python main.py --train
 
 If you find our work useful in your research, please consider citing:
 
-
-    @article{li2021mhformer,
+    @inproceedings{li2022mhformer,
       title={MHFormer: Multi-Hypothesis Transformer for 3D Human Pose Estimation},
       author={Li, Wenhao and Liu, Hong and Tang, Hao and Wang, Pichao and Van Gool, Luc},
-      journal={arXiv preprint arXiv:2111.12707},
-      year={2021}
+      booktitle={Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
+      year={2022}
     }
-
 
 ## Acknowledgement
 
