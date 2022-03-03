@@ -76,7 +76,6 @@ Our code is extended from the following repositories. We thank the authors for r
 - [VideoPose3D](https://github.com/facebookresearch/VideoPose3D)
 - [3d-pose-baseline](https://github.com/una-dinosauria/3d-pose-baseline)
 - [3d_pose_baseline_pytorch](https://github.com/weigq/3d_pose_baseline_pytorch)
-- [StridedTransformer-Pose3D](https://github.com/Vegetebird/StridedTransformer-Pose3D)
 
 
 ## Licence
