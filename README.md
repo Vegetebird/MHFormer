@@ -75,7 +75,7 @@ python demo/vis.py --video sample_video.mp4
 
 Sample demo output:
 
-<p align="center"><img src="figure/sample_video.gif" width="50%" alt="" /></p>
+<p align="center"><img src="figure/sample_video.gif" width="60%" alt="" /></p>
 
 
 ## Citation
