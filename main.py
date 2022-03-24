@@ -26,8 +26,6 @@ def val(opt, actions, val_loader, model):
 
 def step(split, opt, actions, dataLoader, model, optimizer=None, epoch=None):
     loss_all = {'loss': AccumLoss()}
-
-    error_sum = AccumLoss()
     action_error_sum = define_error_list(actions)
 
     if split == 'train':
@@ -38,39 +36,32 @@ def step(split, opt, actions, dataLoader, model, optimizer=None, epoch=None):
     for i, data in enumerate(tqdm(dataLoader, 0)):
         batch_cam, gt_3D, input_2D, action, subject, scale, bb_box, cam_ind = data
         [input_2D, gt_3D, batch_cam, scale, bb_box] = get_varialbe(split, [input_2D, gt_3D, batch_cam, scale, bb_box])
-    
-        N = input_2D.size(0)
-
-        out_target = gt_3D.clone()
-        out_target[:, :, 0] = 0
 
         if split =='train':
             output_3D = model(input_2D) 
         else:
             input_2D, output_3D = input_augmentation(input_2D, model)
 
-        if split == 'train':
-            pred_out = output_3D 
-        elif split == 'test':
-            pred_out = output_3D[:, opt.pad].unsqueeze(1) 
-
-        loss = mpjpe_cal(pred_out, out_target)
-        loss_all['loss'].update(loss.detach().cpu().numpy() * N, N)
+        out_target = gt_3D.clone()
+        out_target[:, :, 0] = 0
 
         if split == 'train':
+            loss = mpjpe_cal(output_3D, out_target)
+
+            N = input_2D.size(0)
+            loss_all['loss'].update(loss.detach().cpu().numpy() * N, N)
+
             optimizer.zero_grad()
             loss.backward()
             optimizer.step()
 
-            pred_out[:, :, 0, :] = 0
-            joint_error = mpjpe_cal(pred_out, out_target).item()
-            error_sum.update(joint_error*N, N)
         elif split == 'test':
-            pred_out[:, :, 0, :] = 0
-            action_error_sum = test_calculation(pred_out, out_target, action, action_error_sum, opt.dataset, subject)
+            output_3D = output_3D[:, opt.pad].unsqueeze(1) 
+            output_3D[:, :, 0, :] = 0
+            action_error_sum = test_calculation(output_3D, out_target, action, action_error_sum, opt.dataset, subject)
 
     if split == 'train':
-        return loss_all['loss'].avg, error_sum.avg*1000
+        return loss_all['loss'].avg
     elif split == 'test':
         p1, p2 = print_error(opt.dataset, action_error_sum, opt.train)
 
@@ -141,7 +132,7 @@ if __name__ == '__main__':
 
     for epoch in range(1, opt.nepoch):
         if opt.train: 
-            loss, error = train(opt, actions, train_dataloader, model, optimizer, epoch)
+            loss = train(opt, actions, train_dataloader, model, optimizer, epoch)
         
         p1, p2 = val(opt, actions, test_dataloader, model)
 
