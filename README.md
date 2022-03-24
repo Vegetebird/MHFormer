@@ -10,6 +10,11 @@
   <img src="figure/skating.gif" width="49%" />
   <img src="figure/anime.gif" width="49%" />
 
+
+## Updates
+- 03/24/2022: Demo and in-the-wild inference code is released.
+
+
 ## Dependencies
 
 - Cuda 11.1
@@ -19,24 +24,26 @@
 ## Dataset setup
 
 Please download the dataset from [Human3.6M](http://vision.imar.ro/human3.6m/) website and refer to [VideoPose3D](https://github.com/facebookresearch/VideoPose3D) to set up the Human3.6M dataset ('./dataset' directory). 
+Or you can download the processed data from [here](https://drive.google.com/drive/folders/112GPdRC9IEcwcJRyrLJeYw9_YV4wLdKC?usp=sharing). 
 
 ```bash
 ${POSE_ROOT}/
 |-- dataset
 |   |-- data_3d_h36m.npz
+|   |-- data_2d_h36m_gt.npz
 |   |-- data_2d_h36m_cpn_ft_h36m_dbb.npz
 ```
 
 ## Download pretrained model
 
-The pretrained model can be found in [Google_Drive](https://drive.google.com/drive/folders/19yIV-XzdtAYZQ2gQsZQyN844lzlTlToa?usp=sharing), please download it and put in the './checkpoint' dictory. 
+The pretrained model can be found in [here](https://drive.google.com/drive/folders/1UWuaJ_nE19x2aM-Th221UpdhRPSCFwZa?usp=sharing), please download it and put it in the './checkpoint' directory. 
 
 ## Test the model
 
 To test on pretrained model on Human3.6M:
 
 ```bash
-python main.py --reload --previous_dir 'checkpoint/pretrained'
+python main.py --test --reload --previous_dir 'checkpoint/pretrained'
 ```
 
 Here, we compare our MHFormer with recent state-of-the-art methods on Human3.6M dataset. Evaluation metric is Mean Per Joint Position Error (MPJPE) in mm​. 
@@ -54,8 +61,22 @@ Here, we compare our MHFormer with recent state-of-the-art methods on Human3.6M 
 To train on Human3.6M:
 
 ```bash
-python main.py --train
+python main.py
 ```
+
+## Demo
+First, you need to download YOLOv3 and HRNet pretrained models [here](https://drive.google.com/drive/folders/1_ENAMOsPM7FXmdYRbkwbFHgzQq_B_NQA?usp=sharing) and put it in the './demo/lib/checkpoint' directory. 
+Then, you need to put your in-the-wild videos in the './demo/video/' directory. 
+
+Run the command below. 
+```bash
+python demo/vis.py --video sample_video.mp4
+```
+
+Sample demo output:
+
+<p align="center"><img src="figure/sample_video.gif" width="50%" alt="" /></p>
+
 
 ## Citation
 
@@ -76,8 +97,7 @@ Our code is extended from the following repositories. We thank the authors for r
 - [VideoPose3D](https://github.com/facebookresearch/VideoPose3D)
 - [3d-pose-baseline](https://github.com/una-dinosauria/3d-pose-baseline)
 - [3d_pose_baseline_pytorch](https://github.com/weigq/3d_pose_baseline_pytorch)
-
-
+- [StridedTransformer-Pose3D](https://github.com/Vegetebird/StridedTransformer-Pose3D)
 ## Licence
 
 This project is licensed under the terms of the MIT license.

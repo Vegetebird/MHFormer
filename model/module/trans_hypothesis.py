@@ -196,8 +196,8 @@ class Transformer(nn.Module):
         x_3 += self.Temporal_pos_embed_3
 
         x_1 = self.pos_drop_1(x_1)
-        x_2 = self.pos_drop_1(x_2)
-        x_3 = self.pos_drop_1(x_3)
+        x_2 = self.pos_drop_2(x_2)
+        x_3 = self.pos_drop_3(x_3)
 
         for i, blk in enumerate(self.blocks):
             x_1, x_2, x_3 = self.blocks[i](x_1, x_2, x_3)

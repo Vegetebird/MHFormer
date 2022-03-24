@@ -41,32 +41,18 @@ def step(split, opt, actions, dataLoader, model, optimizer=None, epoch=None):
     
         N = input_2D.size(0)
 
-        out_target = gt_3D.clone().view(N, -1, opt.out_joints, opt.out_channels) 
+        out_target = gt_3D.clone()
         out_target[:, :, 0] = 0
-        gt_3D = gt_3D.view(N, -1, opt.out_joints, opt.out_channels).type(torch.cuda.FloatTensor)
 
-        if out_target.size(1) > 1:
-            out_target_single = out_target[:, opt.pad].unsqueeze(1)
-            gt_3D_single = gt_3D[:, opt.pad].unsqueeze(1)
-        else:
-            out_target_single = out_target
-            gt_3D_single = gt_3D
-
-        if opt.test_augmentation and split =='test':
-            input_2D, output_3D = input_augmentation(input_2D, model)
-        else:
-            input_2D = input_2D.view(N, -1, opt.n_joints, opt.in_channels, 1).permute(0, 3, 1, 2, 4).type(torch.cuda.FloatTensor) # N, C, T, J, M
+        if split =='train':
             output_3D = model(input_2D) 
-
-        output_3D = output_3D.permute(0, 2, 3, 4, 1).contiguous().view(N, -1, opt.out_joints, opt.out_channels)
-        output_3D = output_3D * scale.unsqueeze(-1).unsqueeze(-1).unsqueeze(-1).repeat(1, output_3D.size(1),opt.out_joints, opt.out_channels) 
-        
-        output_3D_single = output_3D[:, opt.pad].unsqueeze(1) 
+        else:
+            input_2D, output_3D = input_augmentation(input_2D, model)
 
         if split == 'train':
             pred_out = output_3D 
         elif split == 'test':
-            pred_out = output_3D_single
+            pred_out = output_3D[:, opt.pad].unsqueeze(1) 
 
         loss = mpjpe_cal(pred_out, out_target)
         loss_all['loss'].update(loss.detach().cpu().numpy() * N, N)
@@ -86,24 +72,23 @@ def step(split, opt, actions, dataLoader, model, optimizer=None, epoch=None):
     if split == 'train':
         return loss_all['loss'].avg, error_sum.avg*1000
     elif split == 'test':
-        mpjpe = print_error(opt.dataset, action_error_sum, opt.train)
+        p1, p2 = print_error(opt.dataset, action_error_sum, opt.train)
 
-        return mpjpe
+        return p1, p2
 
 def input_augmentation(input_2D, model):
     joints_left = [4, 5, 6, 11, 12, 13] 
     joints_right = [1, 2, 3, 14, 15, 16]
 
-    N, _, T, J, C = input_2D.shape 
-
-    input_2D_flip = input_2D[:, 1].view(N, T, J, C, 1).permute(0, 3, 1, 2, 4)  
-    input_2D_non_flip = input_2D[:, 0].view(N, T, J, C, 1).permute(0, 3, 1, 2, 4) 
-
-    output_3D_flip = model(input_2D_flip)
-    output_3D_flip[:, 0] *= -1 
-    output_3D_flip[:, :, :, joints_left + joints_right] = output_3D_flip[:, :, :, joints_right + joints_left]
+    input_2D_non_flip = input_2D[:, 0]
+    input_2D_flip = input_2D[:, 1]
 
     output_3D_non_flip = model(input_2D_non_flip)
+    output_3D_flip     = model(input_2D_flip)
+
+    output_3D_flip[:, :, :, 0] *= -1
+    output_3D_flip[:, :, joints_left + joints_right, :] = output_3D_flip[:, :, joints_right + joints_left, :] 
+
     output_3D = (output_3D_non_flip + output_3D_flip) / 2
 
     input_2D = input_2D_non_flip
@@ -129,10 +114,10 @@ if __name__ == '__main__':
         train_data = Fusion(opt=opt, train=True, dataset=dataset, root_path=root_path)
         train_dataloader = torch.utils.data.DataLoader(train_data, batch_size=opt.batch_size,
                                                        shuffle=True, num_workers=int(opt.workers), pin_memory=True)
-    if opt.test:
-        test_data = Fusion(opt=opt, train=False, dataset=dataset, root_path =root_path)
-        test_dataloader = torch.utils.data.DataLoader(test_data, batch_size=opt.batch_size,
-                                                      shuffle=False, num_workers=int(opt.workers), pin_memory=True)
+
+    test_data = Fusion(opt=opt, train=False, dataset=dataset, root_path =root_path)
+    test_dataloader = torch.utils.data.DataLoader(test_data, batch_size=opt.batch_size,
+                                                  shuffle=False, num_workers=int(opt.workers), pin_memory=True)
 
     model = Model(opt).cuda()
 
@@ -158,20 +143,18 @@ if __name__ == '__main__':
         if opt.train: 
             loss, error = train(opt, actions, train_dataloader, model, optimizer, epoch)
         
-        if opt.test:
-            mpjpe = val(opt, actions, test_dataloader, model)
-            data_threshold = mpjpe
+        p1, p2 = val(opt, actions, test_dataloader, model)
 
-            if opt.train and data_threshold < opt.previous_best_threshold: 
-                opt.previous_name = save_model(opt.previous_name, opt.checkpoint, epoch, data_threshold, model)
-                opt.previous_best_threshold = data_threshold
+        if opt.train and p1 < opt.previous_best_threshold:
+            opt.previous_name = save_model(opt.previous_name, opt.checkpoint, epoch, p1, model)
+            opt.previous_best_threshold = p1
 
-            if opt.train == 0:
-                print('mpjpe: %.2f' % (mpjpe))
-                break
-            else:
-                logging.info('epoch: %d, lr: %.7f, loss: %.4f, mpjpe: %.2f' % (epoch, lr, loss, mpjpe))
-                print('e: %d, lr: %.7f, loss: %.4f, mpjpe: %.2f' % (epoch, lr, loss, mpjpe))
+        if opt.train == 0:
+            print('p1: %.2f, p2: %.2f' % (p1, p2))
+            break
+        else:
+            logging.info('epoch: %d, lr: %.7f, loss: %.4f, p1: %.2f, p2: %.2f' % (epoch, lr, loss, p1, p2))
+            print('e: %d, lr: %.7f, loss: %.4f, p1: %.2f, p2: %.2f' % (epoch, lr, loss, p1, p2))
 
         if epoch % opt.large_decay_epoch == 0: 
             for param_group in optimizer.param_groups:

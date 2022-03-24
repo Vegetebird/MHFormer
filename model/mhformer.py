@@ -1,5 +1,6 @@
 import torch
 import torch.nn as nn
+from einops import rearrange
 from model.module.trans import Transformer as Transformer_s
 from model.module.trans_hypothesis import Transformer
 
@@ -7,32 +8,28 @@ class Model(nn.Module):
     def __init__(self, args):
         super().__init__()
 
-        layers, channel, d_hid, length  = args.layers, args.channel, args.d_hid, args.frames
-        self.num_joints_in, self.num_joints_out = args.n_joints, args.out_joints
+        self.norm_1 = nn.LayerNorm(args.frames)
+        self.norm_2 = nn.LayerNorm(args.frames)
+        self.norm_3 = nn.LayerNorm(args.frames)
 
-        self.norm_1 = nn.LayerNorm(length)
-        self.norm_2 = nn.LayerNorm(length)
-        self.norm_3 = nn.LayerNorm(length)
+        self.trans_auto_1 = Transformer_s(4, args.frames, args.frames*2, length=2*args.n_joints, h=9)
+        self.trans_auto_2 = Transformer_s(4, args.frames, args.frames*2, length=2*args.n_joints, h=9)
+        self.trans_auto_3 = Transformer_s(4, args.frames, args.frames*2, length=2*args.n_joints, h=9)
 
-        self.trans_auto_1 = Transformer_s(4, length, length*2, length=2*self.num_joints_in, h=9)
-        self.trans_auto_2 = Transformer_s(4, length, length*2, length=2*self.num_joints_in, h=9)
-        self.trans_auto_3 = Transformer_s(4, length, length*2, length=2*self.num_joints_in, h=9)
+        self.encoder_1 = nn.Sequential(nn.Conv1d(2*args.n_joints, args.channel, kernel_size=1))
+        self.encoder_2 = nn.Sequential(nn.Conv1d(2*args.n_joints, args.channel, kernel_size=1))
+        self.encoder_3 = nn.Sequential(nn.Conv1d(2*args.n_joints, args.channel, kernel_size=1))
 
-        self.encoder_1 = nn.Sequential(nn.Conv1d(2*self.num_joints_in, channel, kernel_size=1))
-        self.encoder_2 = nn.Sequential(nn.Conv1d(2*self.num_joints_in, channel, kernel_size=1))
-        self.encoder_3 = nn.Sequential(nn.Conv1d(2*self.num_joints_in, channel, kernel_size=1))
-
-        self.Transformer = Transformer(layers, channel*3, d_hid, length=length)
+        self.Transformer = Transformer(args.layers, args.channel*3, args.d_hid, length=args.frames)
         
         self.fcn = nn.Sequential(
-            nn.BatchNorm1d(channel*3, momentum=0.1),
-            nn.Conv1d(channel*3, 3*self.num_joints_out, kernel_size=1)
+            nn.BatchNorm1d(args.channel*3, momentum=0.1),
+            nn.Conv1d(args.channel*3, 3*args.out_joints, kernel_size=1)
         )
 
     def forward(self, x):
-        x = x[:, :, :, :, 0].permute(0, 2, 3, 1).contiguous() 
-        x = x.view(x.shape[0], x.shape[1], -1) 
-        x = x.permute(0, 2, 1).contiguous()  
+        B, F, J, C = x.shape
+        x = rearrange(x, 'b f j c -> b (j c) f').contiguous()
 
         ## MHG
         x_1 = x   + self.trans_auto_1(self.norm_1(x))
@@ -55,9 +52,7 @@ class Model(nn.Module):
         ## Head
         x = x.permute(0, 2, 1).contiguous() 
         x = self.fcn(x) 
-
-        x = x.view(x.shape[0], self.num_joints_out, -1, x.shape[2]) 
-        x = x.permute(0, 2, 3, 1).contiguous().unsqueeze(dim=-1) 
+        x = rearrange(x, 'b (j c) f -> b f j c', j=J).contiguous()
 
         return x
 

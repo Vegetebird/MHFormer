@@ -12,6 +12,10 @@ def world_to_camera(X, R, t):
     return wrap(qrot, np.tile(Rt, (*X.shape[:-1], 1)), X - t) 
 
 
+def camera_to_world(X, R, t):
+    return wrap(qrot, np.tile(R, (*X.shape[:-1], 1)), X) + t
+
+
 def wrap(func, *args, unsqueeze=False):
 	args = list(args)
 	for i, arg in enumerate(args):
