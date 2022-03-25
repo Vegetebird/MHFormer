@@ -41,7 +41,7 @@ def parse_args():
                         help='The model directory')
     parser.add_argument('--det-dim', type=int, default=416,
                         help='The input dimension of the detected image')
-    parser.add_argument('--thred-score', type=float, default=0.70,
+    parser.add_argument('--thred-score', type=float, default=0.30,
                         help='The threshold of object Confidence')
     parser.add_argument('-a', '--animation', action='store_true',
                         help='output animation')
