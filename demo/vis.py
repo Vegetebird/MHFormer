@@ -101,7 +101,7 @@ def get_pose2D(video_path, output_dir):
 
 def img2video(video_path, output_dir):
     cap = cv2.VideoCapture(video_path)
-    fps = int(cap.get(cv2.CAP_PROP_FPS))
+    fps = int(cap.get(cv2.CAP_PROP_FPS)) + 5
 
     fourcc = cv2.VideoWriter_fourcc(*"mp4v")
 
@@ -242,7 +242,7 @@ def get_pose3D(video_path, output_dir):
         edge = (image_2d.shape[1] - image_2d.shape[0]) // 2
         image_2d = image_2d[:, edge:image_2d.shape[1] - edge]
 
-        edge = 120
+        edge = 130
         image_3d = image_3d[edge:image_3d.shape[0] - edge, edge:image_3d.shape[1] - edge]
 
         ## show
