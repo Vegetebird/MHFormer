@@ -14,13 +14,13 @@
 ## Updates
 - 03/24/2022: Demo and in-the-wild inference code is released!
 
+## Installation
 
-## Dependencies
-
-- Cuda 11.1
-- Python 3.6
-- Pytorch 1.7.1
-
+- Create a conda environment: ```conda create -n mhformer python=3.6```
+- Download cudatoolkit=11.0 from [here](https://developer.nvidia.com/cuda-11.0-download-archive) and install 
+- ```pip install torch==1.7.1+cu110 torchvision==0.8.2+cu110 torchaudio===0.7.2 -f https://download.pytorch.org/whl/torch_stable.html```
+- ```pip install -r requirements.txt```
+  
 ## Dataset setup
 
 Please download the dataset from [Human3.6M](http://vision.imar.ro/human3.6m/) website and refer to [VideoPose3D](https://github.com/facebookresearch/VideoPose3D) to set up the Human3.6M dataset ('./dataset' directory). 
