@@ -1,12 +1,12 @@
-opencv-python==4.5.5.64
-tqdm==4.64.0
-yacs==0.1.8
-numba==0.53.1
-scikit-image==0.17.2
-filterpy==1.4.5
-ipython==7.16.3
-einops==0.4.1
-timm==0.5.4
+opencv-python
+tqdm
+yacs
+numba
+scikit-image
+filterpy
+ipython
+einops
+timm==0.4.5
 
 
 

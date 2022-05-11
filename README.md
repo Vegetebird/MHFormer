@@ -16,10 +16,10 @@
 
 ## Installation
 
-- Create a conda environment: ```conda create -n mhformer python=3.6```
+- Create a conda environment: ```conda create -n mhformer python=3.7```
 - Download cudatoolkit=11.0 from [here](https://developer.nvidia.com/cuda-11.0-download-archive) and install 
-- ```pip install torch==1.7.1+cu110 torchvision==0.8.2+cu110 torchaudio===0.7.2 -f https://download.pytorch.org/whl/torch_stable.html```
-- ```pip install -r requirements.txt```
+- ```pip3 install torch==1.7.1+cu110 torchvision==0.8.2+cu110 -f https://download.pytorch.org/whl/torch_stable.html```
+- ```pip3 install -r requirements.txt```
   
 ## Dataset setup
 
@@ -36,7 +36,7 @@ ${POSE_ROOT}/
 
 ## Download pretrained model
 
-The pretrained model can be found in [here](https://drive.google.com/drive/folders/1UWuaJ_nE19x2aM-Th221UpdhRPSCFwZa?usp=sharing), please download it and put it in the './checkpoint' directory. 
+The pretrained model can be found in [here](https://drive.google.com/drive/folders/1UWuaJ_nE19x2aM-Th221UpdhRPSCFwZa?usp=sharing), please download it and put it in the './checkpoint/pretrained' directory. 
 
 ## Test the model
 
