@@ -113,14 +113,15 @@ if __name__ == '__main__':
     model = Model(opt).cuda()
 
     model_dict = model.state_dict()
-    if opt.reload:
+    if opt.previous_dir != '':
         model_path = sorted(glob.glob(os.path.join(opt.previous_dir, '*.pth')))[0]
         print(model_path)
 
         pre_dict = torch.load(model_path)
-        for name, key in model_dict.items():
-            model_dict[name] = pre_dict[name]
 
+        model_dict = model.state_dict()
+        state_dict = {k: v for k, v in pre_dict.items() if k in model_dict.keys()}
+        model_dict.update(state_dict)
         model.load_state_dict(model_dict)
 
     all_param = []
