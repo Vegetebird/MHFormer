@@ -4,7 +4,7 @@
 
 > [**MHFormer: Multi-Hypothesis Transformer for 3D Human Pose Estimation**](https://arxiv.org/pdf/2111.12707),            
 > Wenhao Li, Hong Liu, Hao Tang, Pichao Wang, Luc Van Gool,        
-> *In Conference on Computer Vision and Pattern Recognition (CVPR), 2022*
+> *In IEEE Conference on Computer Vision and Pattern Recognition (CVPR), 2022*
 
 <p float="left">
   <img src="figure/skating.gif" width="49%" />
