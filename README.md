@@ -13,7 +13,7 @@
 
 ## Updates
 - 05/12/2022: The pretrained models of 81-frames, 243-frames, 351-frames are released!
-- 03/24/2022: Demo and in-the-wild inference code is released!
+- 03/24/2022: Demo and in-the-wild inference code is released! 
 
 ## Installation
 
