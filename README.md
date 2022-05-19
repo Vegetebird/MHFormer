@@ -81,6 +81,53 @@ Sample demo output:
 <p align="center"><img src="figure/sample_video.gif" width="60%" alt="" /></p>
 
 
+## Order of Keypoints in Dataset and Model Predictions
+3D prediction = 2D prediction = 2D keypoints in dataset
+```
+0 = between hips
+1 = right hip
+2 = right knee
+3 = right ankle
+4 = left hip
+5 = left knee
+6 = left ankle
+7 = back
+8 = neck
+9 = head (lips)
+10 = sitehead (forehead)
+11 = left shoulder
+12 = left elbow
+13 = left wrist
+14 = right shoulder
+15 = right elbow
+16 = right wrist
+```
+![](https://imgur.com/iKZPIsh.png)
+
+3D keypoints in dataset
+```
+0 = between hips
+1 = right hip
+2 = right knee
+3 = right ankle
+6 = left hip
+7 = left knee
+8 = left ankle
+12 = back
+13 = neck
+14 = head (lips)
+15 = sitehead (forehead)
+17 = left shoulder
+18 = left elbow
+19 = left wrist
+25 = right shoulder
+26 = right elbow
+27 = right wrist
+```
+![](https://imgur.com/5pkuTwK.png)
+
+The format for each 3D prediction is ```(x, depth, height)```, where depth is normalized
+
 ## Citation
 
 If you find our work useful in your research, please consider citing:
