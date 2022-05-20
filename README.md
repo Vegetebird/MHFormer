@@ -6,8 +6,10 @@
 > Wenhao Li, Hong Liu, Hao Tang, Pichao Wang, Luc Van Gool,        
 > *In IEEE Conference on Computer Vision and Pattern Recognition (CVPR), 2022*
 
-<p float="left">
-  <img src="figure/skating.gif" width="49%" /> <img src="figure/anime.gif" width="49%" />
+<p float="left"><img src="figure/skating.gif" width="49%"><img src="figure/anime.gif" width="49%"/>
+
+| ![aa](figure/skating.gif)  | ![bb](figure/anime.gif) |
+| ------------- | ------------- |
 
 
 ## Updates
