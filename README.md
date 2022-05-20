@@ -126,8 +126,6 @@ Sample demo output:
 ```
 ![](https://imgur.com/5pkuTwK.png)
 
-The format for each 3D prediction is ```(x, depth, height)```, where depth is normalized
-
 ## Citation
 
 If you find our work useful in your research, please consider citing:
