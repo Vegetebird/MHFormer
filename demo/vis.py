@@ -136,6 +136,7 @@ def get_pose3D(video_path, output_dir):
     model = Model(args).cuda()
 
     model_dict = model.state_dict()
+    # Put the pretrained model of MHFormer in 'checkpoint/pretrained/351'
     model_path = sorted(glob.glob(os.path.join(args.previous_dir, '*.pth')))[0]
 
     pre_dict = torch.load(model_path)
