@@ -62,7 +62,7 @@ Here, we compare our MHFormer with recent state-of-the-art methods on Human3.6M 
 To train a 351-frames model on Human3.6M:
 
 ```bash
-python main.py --framse 351 --batch_size 128
+python main.py --frames 351 --batch_size 128
 ```
 
 The batch size can be changed depending on your machine. 
