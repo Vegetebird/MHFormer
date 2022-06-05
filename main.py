@@ -137,9 +137,12 @@ if __name__ == '__main__':
         
         p1, p2 = val(opt, actions, test_dataloader, model)
 
-        if opt.train and p1 < opt.previous_best_threshold:
-            opt.previous_name = save_model(opt.previous_name, opt.checkpoint, epoch, p1, model)
-            opt.previous_best_threshold = p1
+        if opt.train:
+            save_model_epoch(opt.checkpoint, epoch, model)
+
+            if p1 < opt.previous_best_threshold:
+                opt.previous_name = save_model(opt.previous_name, opt.checkpoint, epoch, p1, model)
+                opt.previous_best_threshold = p1
 
         if opt.train == 0:
             print('p1: %.2f, p2: %.2f' % (p1, p2))

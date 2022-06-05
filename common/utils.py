@@ -205,6 +205,8 @@ def save_model(previous_name, save_dir, epoch, data_threshold, model):
     return previous_name
     
 
+def save_model_epoch(save_dir, epoch, model):
+    torch.save(model.state_dict(), '%s/model_%d.pth' % (save_dir, epoch))
 
 
 
