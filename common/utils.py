@@ -199,14 +199,15 @@ def save_model(previous_name, save_dir, epoch, data_threshold, model):
     if os.path.exists(previous_name):
         os.remove(previous_name)
 
-    torch.save(model.state_dict(),
-               '%s/model_%d_%d.pth' % (save_dir, epoch, data_threshold * 100))
+    torch.save(model.state_dict(), '%s/model_%d_%d.pth' % (save_dir, epoch, data_threshold * 100))
+
     previous_name = '%s/model_%d_%d.pth' % (save_dir, epoch, data_threshold * 100)
+
     return previous_name
     
 
 def save_model_epoch(save_dir, epoch, model):
-    torch.save(model.state_dict(), '%s/model_%d.pth' % (save_dir, epoch))
+    torch.save(model.state_dict(), '%s/epoch_%d.pth' % (save_dir, epoch))
 
 
 
