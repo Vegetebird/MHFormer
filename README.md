@@ -13,7 +13,7 @@
 
 ## Updates
 - 05/12/2022: The pretrained models of 81-frames, 243-frames, 351-frames are released!
-- 03/24/2022: Demo and in-the-wild inference code is released! 
+- 03/24/2022: Demo and in-the-wild inference code are released! 
 
 ## Installation
 
@@ -88,7 +88,8 @@ If you find our work useful in your research, please consider citing:
     @inproceedings{li2022mhformer,
       title={MHFormer: Multi-Hypothesis Transformer for 3D Human Pose Estimation},
       author={Li, Wenhao and Liu, Hong and Tang, Hao and Wang, Pichao and Van Gool, Luc},
-      booktitle={Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
+      booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+      pages={13147-13156},
       year={2022}
     }
 
