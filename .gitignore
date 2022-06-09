@@ -1,0 +1,4 @@
+*.pth
+*.weights
+*.npz
+*.pyc
