@@ -12,7 +12,7 @@
 
 
 ## Updates
-- 05/12/2022: The pretrained models of 81-frames, 243-frames, 351-frames are released!
+- 06/27/2022: The pretrained models of 27, 81, 243, and 351 frames are all released!
 - 03/24/2022: Demo and in-the-wild inference code are released! 
 
 ## Installation
@@ -66,6 +66,12 @@ python main.py --frames 351 --batch_size 128
 ```
 
 The batch size can be changed depending on your machine. 
+
+To train a 81-frames model on Human3.6M:
+
+```bash
+python main.py --frames 81 --batch_size 256
+```
 
 ## Demo
 First, you need to download YOLOv3 and HRNet pretrained models [here](https://drive.google.com/drive/folders/1_ENAMOsPM7FXmdYRbkwbFHgzQq_B_NQA?usp=sharing) and put it in the './demo/lib/checkpoint' directory. 

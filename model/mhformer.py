@@ -18,9 +18,31 @@ class Model(nn.Module):
         self.Transformer_encoder_3 = Transformer_encoder(4, args.frames, args.frames*2, length=2*args.n_joints, h=9)
 
         ## Embedding
-        self.embedding_1 = nn.Conv1d(2*args.n_joints, args.channel, kernel_size=1)
-        self.embedding_2 = nn.Conv1d(2*args.n_joints, args.channel, kernel_size=1)
-        self.embedding_3 = nn.Conv1d(2*args.n_joints, args.channel, kernel_size=1)
+        if args.frames > 27:
+            self.embedding_1 = nn.Conv1d(2*args.n_joints, args.channel, kernel_size=1)
+            self.embedding_2 = nn.Conv1d(2*args.n_joints, args.channel, kernel_size=1)
+            self.embedding_3 = nn.Conv1d(2*args.n_joints, args.channel, kernel_size=1)
+        else:
+            self.embedding_1 = nn.Sequential(
+                nn.Conv1d(2*args.n_joints, args.channel, kernel_size=1),
+                nn.BatchNorm1d(args.channel, momentum=0.1),
+                nn.ReLU(inplace=True),
+                nn.Dropout(0.25)
+            )
+
+            self.embedding_2 = nn.Sequential(
+                nn.Conv1d(2*args.n_joints, args.channel, kernel_size=1),
+                nn.BatchNorm1d(args.channel, momentum=0.1),
+                nn.ReLU(inplace=True),
+                nn.Dropout(0.25)
+            )
+
+            self.embedding_3 = nn.Sequential(
+                nn.Conv1d(2*args.out_joints, args.channel, kernel_size=1),
+                nn.BatchNorm1d(args.channel, momentum=0.1),
+                nn.ReLU(inplace=True),
+                nn.Dropout(0.25)
+            )
 
         ## SHR & CHI
         self.Transformer_hypothesis = Transformer_hypothesis(args.layers, args.channel, args.d_hid, length=args.frames)
