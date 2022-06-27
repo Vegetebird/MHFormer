@@ -65,8 +65,6 @@ To train a 351-frames model on Human3.6M:
 python main.py --frames 351 --batch_size 128
 ```
 
-The batch size can be changed depending on your machine. 
-
 To train a 81-frames model on Human3.6M:
 
 ```bash
