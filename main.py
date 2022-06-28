@@ -114,8 +114,12 @@ if __name__ == '__main__':
 
     model_dict = model.state_dict()
     if opt.previous_dir != '':
-        model_path = sorted(glob.glob(os.path.join(opt.previous_dir, '*.pth')))[0]
-        print(model_path)
+        model_paths = sorted(glob.glob(os.path.join(opt.previous_dir, '*.pth')))
+        
+        for path in model_paths:
+            if path.split('/')[-1].startswith('model'):
+                model_path = path
+                print(model_path)
 
         pre_dict = torch.load(model_path)
 
