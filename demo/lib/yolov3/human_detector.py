@@ -76,9 +76,31 @@ def arg_parse():
     return parser.parse_args()
 
 
-def load_model(args=None, CUDA=None, inp_dim=416):
+# Manually set args instead of argparser for Cog
+def set_default_options():
+
+    class Args():
+        def __init__(self):
+            pass
+    args = Args()
+    args.confidence = 0.7
+    args.nms_thresh = 0.4
+    args.reso = 416
+    args.weight_file = 'demo/lib/checkpoint/yolov3.weights'
+    args.cfg_file = '/src/demo/lib/yolov3/cfg/yolov3.cfg'
+    args.animation =  False
+    args.video = 'camera'
+    args.image = '/src/demo/lib/yolov3/data/dog-cycle-car.png'
+    args.num_person = 1
+    args.gpu = '0'
+    return args
+
+def load_model(args=None, CUDA=None, inp_dim=416, use_cog=False):
     if args is None:
-        args = arg_parse()
+        if use_cog:
+            args = set_default_options()
+        else:
+            args = arg_parse()
 
     if CUDA is None:
         CUDA = torch.cuda.is_available()
@@ -102,15 +124,19 @@ def load_model(args=None, CUDA=None, inp_dim=416):
     return model
 
 
-def yolo_human_det(img, model=None, reso=416, confidence=0.70):
-    args = arg_parse()
+def yolo_human_det(img, model=None, reso=416, confidence=0.70, use_cog=False):
+    if use_cog:
+        args = set_default_options()
+    else:
+        args = arg_parse()
+
     # args.reso = reso
     inp_dim = reso
     num_classes = 80
 
     CUDA = torch.cuda.is_available()
     if model is None:
-        model = load_model(args, CUDA, inp_dim)
+        model = load_model(args, CUDA, inp_dim, use_cog=use_cog)
 
     if type(img) == str:
         assert os.path.isfile(img), 'The image path does not exist'
