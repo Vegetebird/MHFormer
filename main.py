@@ -133,7 +133,6 @@ if __name__ == '__main__':
     all_param += list(model.parameters())
 
     optimizer = optim.Adam(all_param, lr=opt.lr, amsgrad=True)
-    scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, 'min', factor=0.317, patience=5, verbose=True)
 
     for epoch in range(1, opt.nepoch):
         if opt.train: 

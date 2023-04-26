@@ -87,10 +87,12 @@ def get_pose2D(video_path, output_dir):
     height = cap.get(cv2.CAP_PROP_FRAME_HEIGHT)
 
     print('\nGenerating 2D pose...')
-    keypoints, scores = hrnet_pose(video_path, det_dim=416, num_peroson=1, gen_output=True)
+    with torch.no_grad():
+        # the first frame of the video should be detected a person
+        keypoints, scores = hrnet_pose(video_path, det_dim=416, num_peroson=1, gen_output=True)
     keypoints, scores, valid_frames = h36m_coco_format(keypoints, scores)
     re_kpts = revise_kpts(keypoints, scores, valid_frames)
-    print('Generating 2D pose successful!')
+    print('Generating 2D pose successfully!')
 
     output_dir += 'input_2D/'
     os.makedirs(output_dir, exist_ok=True)
@@ -227,7 +229,7 @@ def get_pose3D(video_path, output_dir):
         os.makedirs(output_dir_3D, exist_ok=True)
         plt.savefig(output_dir_3D + str(('%04d'% i)) + '_3D.png', dpi=200, format='png', bbox_inches = 'tight')
         
-    print('Generating 3D pose successful!')
+    print('Generating 3D pose successfully!')
 
     ## all
     image_dir = 'results/' 
