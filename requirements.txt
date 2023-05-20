@@ -1,7 +1,7 @@
 numpy
 einops
 timm
-matplotlib
+matplotlib==3.7.1
 tqdm
 yacs
 numba
