@@ -1,9 +1,7 @@
 numpy
-torch==1.7.1
-torchvision==0.8.2
-einops==0.3.0
-timm==0.4.5
-matplotlib==2.2.2
+einops
+timm
+matplotlib
 tqdm
 yacs
 numba

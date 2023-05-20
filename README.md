@@ -18,6 +18,7 @@
 ## Installation
 
 - Create a conda environment: ```conda create -n mhformer python=3.9```
+- Install Pytorch 1.7.1 and torchvision 0.8.2 following the [official instructions](https://pytorch.org/)
 - ```pip3 install -r requirements.txt```
   
 ## Dataset setup
