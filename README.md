@@ -10,10 +10,8 @@
 | ![skating](figure/skating.gif)  | ![anime](figure/anime.gif) |
 | ------------- | ------------- |
 
-
-## Updates
-- 06/27/2022: The pretrained models of 27, 81, 243, and 351 frames are all released!
-- 03/24/2022: Demo and in-the-wild inference code are released! 
+## News
+- Our method has been improved the efficiency without sacrificing performance in [🔥HoT🔥](https://github.com/NationalGAILab/HoT), CVPR 2024!
 
 ## Installation
 

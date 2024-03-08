@@ -226,7 +226,7 @@ def get_pose3D(video_path, output_dir):
         gs = gridspec.GridSpec(1, 1)
         gs.update(wspace=-0.00, hspace=0.05) 
         ax = plt.subplot(gs[0], projection='3d')
-        show3Dpose( post_out, ax)
+        show3Dpose(post_out, ax)
 
         output_dir_3D = output_dir +'pose3D/'
         os.makedirs(output_dir_3D, exist_ok=True)
