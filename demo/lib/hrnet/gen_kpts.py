@@ -52,8 +52,27 @@ def parse_args():
     parser.add_argument('--gpu', type=str, default='0', help='input video')
     args = parser.parse_args()
 
+    
     return args
 
+
+# Manually set args instead of argparser for Cog
+def set_default_options():
+
+    class Args():
+        def __init__(self):
+            pass
+    args = Args()
+    args.cfg = 'demo/lib/hrnet/experiments/w48_384x288_adam_lr1e-3.yaml'
+    args.opts = []
+    args.modelDir = 'demo/lib/checkpoint/pose_hrnet_w48_384x288.pth'
+    args.det_dim = 416
+    args.thred_score = 0.3
+    args.animation = False
+    args.num_person = 1
+    args.video = 'camera'
+    args.gpu= '0'
+    return args
 
 def reset_config(args):
     update_config(cfg, args)
@@ -84,15 +103,19 @@ def model_load(config):
     return model
 
 
-def gen_video_kpts(video, det_dim=416, num_peroson=1, gen_output=False):
+def gen_video_kpts(video, det_dim=416, num_peroson=1, gen_output=False, use_cog=False):
     # Updating configuration
-    args = parse_args()
+    if use_cog:
+        args = set_default_options()
+    else:
+        args = parse_args()
+
     reset_config(args)
 
     cap = cv2.VideoCapture(video)
 
     # Loading detector and pose model, initialize sort for track
-    human_model = yolo_model(inp_dim=det_dim)
+    human_model = yolo_model(inp_dim=det_dim, use_cog=use_cog)
     pose_model = model_load(cfg)
     people_sort = Sort(min_hits=0)
 
@@ -106,7 +129,7 @@ def gen_video_kpts(video, det_dim=416, num_peroson=1, gen_output=False):
         if not ret:
             continue
 
-        bboxs, scores = yolo_det(frame, human_model, reso=det_dim, confidence=args.thred_score)
+        bboxs, scores = yolo_det(frame, human_model, reso=det_dim, confidence=args.thred_score, use_cog=use_cog)
 
         if bboxs is None or not bboxs.any():
             print('No person detected!')
