@@ -98,6 +98,7 @@ If you find our work useful in your research, please consider citing:
       title={Multi-Hypothesis Representation Learning for Transformer-Based 3D Human Pose Estimation},
       author={Li, Wenhao and Liu, Hong and Tang, Hao and Wang, Pichao},
       journal={Pattern Recognition},
+      volume = {141},
       pages={109631},
       year={2023},
     }
