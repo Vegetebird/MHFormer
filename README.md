@@ -1,5 +1,8 @@
 # MHFormer: Multi-Hypothesis Transformer for 3D Human Pose Estimation [CVPR 2022]
 
+[Demo and Docker image on Replicate](https://replicate.com/Vegetebird/MHFormer)
+<a href="https://replicate.com/Vegetebird/MHFormer"><img src="https://replicate.com/Vegetebird/MHFormer/badge"></a>
+
 <p align="center"><img src="figure/pipline.jpg" width="100%" alt="" /></p>
 
 > [**MHFormer: Multi-Hypothesis Transformer for 3D Human Pose Estimation**](https://arxiv.org/pdf/2111.12707),            
